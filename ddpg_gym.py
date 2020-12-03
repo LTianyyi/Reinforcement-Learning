@@ -384,23 +384,22 @@ class DDPG():
             done = False
             state   = [[], []]
             state_  = [[], []]
-            self.var = 0.1*self.act_bound[1]*np.exp(-self.num_episodes/training_num)
+            self.var = 0.1*self.act_bound[1]*np.exp(-self.num_episodes/200)
             while ~done and step < MAX_STEP:
                 # 当前的状态
                 state    = np.expand_dims(self.observation,0)
-                obs_cur  = [np.ones((20,20,20,1)), self.observation]
                 # 当前动作
                 action  = self.actor_critic.chooseAction(state).reshape(self.actor_critic.n_actions_)
                 self.action = np.clip(np.random.normal(action, self.var), self.act_bound[0], self.act_bound[1])
                 # 与环境交互动作
-                self.obeservation_next, self.reward, done, info = self.env.step(action)
+                self.observation_next, self.reward, done, info = self.env.step(action)
 
-                state_ = np.expand_dims(self.obeservation_next,0)
+                state_ = np.expand_dims(self.observation_next,0)
 
-                exp = [self.observation, self.action, self.reward/15.0, self.obeservation_next, done]
+                exp = [self.observation, self.action, self.reward/15.0, self.observation_next, done]
                 self.buffer.push(exp)
                 #推进一步
-                self.observation = self.obeservation_next
+                self.observation = self.observation_next
                 total_reward += self.reward
                 step +=1
                 if self.buffer.size> 200:
