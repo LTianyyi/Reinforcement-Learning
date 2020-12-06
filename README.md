@@ -1,6 +1,7 @@
 # Reinforcement-Learning
 Implementation of some reinforcement learning code in TensorFlow 1.14.0.
 However, all code for **continuous space**.
+In the future, it will be used on motion planner.
 ```
 conda/pip install gym
 conda/pip install tensorflow-gpu==1.14.0
@@ -13,7 +14,9 @@ conda/pip install tensorflow-gpu==1.14.0
 3. sac+gym: The SAC(Soft Actor Critic) for gym-Pendulum.
 
 ## TODO
-1. Modify code comments
+1. Modify code comments.
 2. Add *Target Policy Smoothing* in *td3_gym*.
 3. Add *evaluePolicy* in *ddpg_dym* and *td3_gym*.
 4. Modularization, separate the modules such as buffer, actor and critic.
+5. Add IMPALA of SAC with replay buffer.
+6. Try to train planner based on IMPAPA-SAC. 
